@@ -1,0 +1,744 @@
+/* General Body and Map Styles */ 
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+ } 
+
+
+    #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        right: 0;
+        overflow: hidden; /* Prevents scrolling inside the map container */     
+    }
+
+
+    /* 
+    ===============================
+        Z INDEXES
+    ===============================
+    */
+
+    /* Base z-index values */
+    .map-container {
+        z-index: 0;
+    }
+
+    .sidebar, .bottom-sidebar, .right-sidebar {
+        z-index: 10; /* Base value for sidebars */
+    }
+
+    .sidebar.collapsed, .bottom-sidebar.collapsed, .right-sidebar.collapsed {
+        z-index: 5; /* Lower z-index for collapsed sidebars */
+        position: fixed; /* Keeps it out of the document flow */
+    }
+
+    .sidebar-toggle {
+        z-index: 5; /* Base value for toggles */
+    }
+
+    /* Adjustments for specific sidebars */
+    .sidebar-toggle.welcome {
+        z-index: 5;
+    }
+
+    .sidebar-toggle.chart, .sidebar-toggle.filter, .sidebar-toggle.details, .sidebar-toggle.about {
+        z-index: 5;
+    }
+
+    .sidebar-toggle.active {
+        z-index: 50; /* Higher when active */
+    }
+
+    /* Popup z-index */
+    .mapboxgl-popup {
+        z-index: 30; /* Ensure popups are above sidebars and toggles */
+    }
+
+    /* Ensure sidebars have a higher base z-index to handle toggles */
+    .sidebar-content {
+        z-index: 50;
+    }
+
+    #nextRaceInfo {
+        z-index: 15; /* To ensure it is above other contents but below the toggles */
+    }
+
+    /* Hover effect for the toggle button */
+    .sidebar-toggle:hover {
+        z-index: 20; /* Higher when hovered */
+    }
+
+    /* 
+    ===============================
+    LEFT SIDE STYLES
+    ===============================
+    */
+
+
+    /* Flexbox utility for centering content */
+    .flex-center {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        left: 25px; 
+    }
+
+    /* Specific positioning for the 'welcome' section on the left */
+    /* .flex-center.welcome {
+        left: 25px;
+    } */
+
+    /* Styles for main sidebar content on the left */
+    .sidebar-content {
+        position: absolute;
+        top: 5%;
+        width: 90%;
+        height: 95%;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 40px;
+        background: rgba(231, 216, 201, 0.8);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #f8f8f8;
+        padding: 10px;
+        text-align: center;
+    }
+
+    /* Styles for paragraphs inside the left sidebar content - text within left side paragraphs */
+    .sidebar-content p {
+        font-size: 20px;
+        color: #ffffff;
+        line-height: 1.5;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    /* Ensure the sidebar is swipe-friendly */
+    .sidebar {
+    transition: transform 0.3s ease-in-out;
+    touch-action: pan-y;
+    }
+
+
+    /* Styling for different types of paragraphs */
+    .sidebar-content p.intro { font-weight: bold; }
+    .sidebar-content p.highlight { background-color: yellow; }
+    .sidebar-content p:first-child { margin-top: 0; }
+    .sidebar-content p:last-child { margin-bottom: 0; }
+
+
+    /* Title style for the left sidebar */
+    .sidebar-title {
+        font-family: "Your Creative Font", sans-serif;
+        font-size: 40px;
+        color: #ffffff;
+        font-weight: bold;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        line-height: 2;
+    }
+
+    /* Title style for the left sidebar */
+    .right-title {
+            font-family: "Your Creative Font", sans-serif;
+            font-size: 35px;
+            color: #ffffff;
+            font-weight: bold;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            line-height: 2;
+    }
+
+        /* Next Race Info Styles */
+    #nextRaceInfo {
+        color: #ffffff; /* Adjust the color as needed */
+        font-size: 20px; /* Keeping font size consistent with sidebar */
+        margin-bottom: 10px; /* Spacing for clarity */
+        visibility: visible;
+    }
+
+    #nextRaceInfo a {
+        color: #0066cc;
+        text-decoration: none;
+    }
+
+    #nextRaceInfo a:hover {
+        text-decoration: underline;
+    }
+
+
+    /* Toggle button styles specific to the left sidebar */
+/* Toggle button styles specific to the left sidebar */
+.sidebar-toggle {
+    font-family: "Your Creative Font", sans-serif; /* Replace with the actual font you are using */
+    font-size: 20px; /* Ensure the font size is consistent */
+    color: white;
+    position: absolute;
+    right: 0; /* Or adjust this if it's dangling off the side */
+    bottom: 0; /* Adjust this based on your layout needs */
+    width: 30px;
+    height: 30px;
+    overflow: visible;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    font-size: 24px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+/* Common styles for left side elements - rounding on the welcome toggle button */
+.rounded-rect {
+    background: rgba(197, 176, 156, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 0 0px 0px rgb(0, 0, 0);
+}
+
+.sidebar-toggle.welcome {
+    right: -140px;
+    top: 50%;
+    width: 100px;
+    line-height: 90px;
+    /* text-indent: -30px; */
+    font-size: 20px;
+    color: white;
+    /* z-index: 2; */
+}
+
+/* Hover effect for the toggle button */
+.sidebar-toggle:hover {
+    color: rgba(87, 3, 3, 1);
+}
+
+/* Styles specific to the 'welcome' sidebar on the left */
+.sidebar {
+    transition: transform 1s;
+    position: absolute;
+    /* z-index: 2; */
+    width: 355px;
+    height: 95%;
+}
+
+.welcome.collapsed {
+    transform: translateX(-400px);
+}
+
+/* /* New styles for the bottom toggle button */
+ .sidebar-toggle.bottom-toggle {
+    right: 140px; /* Match the right position of the top toggle */
+    bottom: 20px; /* Adjust this to add some space from the bottom */
+    width: 100px;
+    z-index:50;
+    line-height: 90px;
+    font-size: 20px;
+    color: white;
+}  
+
+
+    /* 
+    ===============================
+    BOTTOM SIDE STYLES
+    ===============================
+    */
+
+
+    /* .bottom-sidebar {
+        transition: transform 1s;
+        position: absolute;
+        height: 305px;
+        left: 2%;
+        width: 100%;
+        bottom: 30px; 
+    }
+     */
+
+    /* .bottom-sidebar:not(.collapsed) #mySidenav a {
+        bottom: -280px; 
+    }
+
+    .bottom-sidebar.collapsed {
+        transform: translateY(calc(100% + 30px)); 
+    } */
+
+
+    /* #elevation .sidebar-content { background-color: rgba(230, 183, 114, 0.8); } */
+    #season .sidebar-content {
+        background-color: rgba(233, 181, 151, 0.8);
+        overflow-x: auto; /* Enable horizontal scrolling */
+        overflow-y: hidden; /* Enable vertical scrolling */
+        white-space: nowrap; /* For horizontal scrolling without wrapping */
+            /* Ensure there's enough top margin or padding if the toggle button is positioned absolutely */
+        }
+
+
+    .sidebar-toggle.season {
+        background-color: rgba(233, 181, 151, 0.8);
+        width: 200px;
+        height: 80px;
+        line-height: 90px;
+        font-size: 20px;
+        color: white;
+        position: absolute;
+        left: 40%;
+        bottom: 200px;
+        transform: translateY(-100%);
+        border-radius: 20px 20px 0 0;
+    }
+
+
+
+    /* ===============================
+    Gantt Chart Container
+    =============================== */
+
+    #ganttChart {
+        width: 100%;
+        height: 100%; 
+        background-color: rgba(233, 181, 151, 0.1); 
+    }
+    
+
+    #ganttChart {
+        overflow-x: scroll; 
+        display: block; 
+        width: 100%; 
+    }
+
+    .tooltip {
+        position: absolute;
+        text-align: center;
+        width: auto;
+        height: auto;
+        padding: 8px;
+        font: 12px sans-serif;
+        background: rgb(255, 255, 255);
+        border: 1px solid #020d49; /* Add a border for better visibility */
+        border-radius: 8px;
+        pointer-events: none;
+        z-index: 10; /* Ensure it is on top */
+        opacity: 1; /* Make sure it's fully opaque */
+    }
+    
+    
+
+  /* 
+    ===============================
+    GEOCODER TOP
+    ===============================
+    */
+
+.mapboxgl-ctrl-geocoder--input {
+    padding-left: 30px; 
+}
+
+.mapboxgl-ctrl-geocoder--button {
+    right: 20px; 
+}
+
+  /* 
+    ===============================
+    GEOCODER BOTTOM
+    ===============================
+    */
+
+    /* 
+    ===============================
+    RIGHT SIDE STYLES
+    ===============================
+    */
+
+    /* Specific positioning for the 'chart' section on the right */
+    /* .flex-center.chart {
+        right: 0px;
+    } */
+
+    /* Common styles for all right sidebars */
+    .right-sidebar {
+    transition: transform 1s;
+    position: absolute;
+    /* z-index: 2; */
+    width: 300px; /* Width of the sidebar */
+    height: 95vh; /* Height based on the viewport height */
+    right: 25px; /* Position from the right */
+
+    }
+
+    .right-sidebar:not(.collapsed) #mySidenav a {
+    right: 300px; /* Adjust to the width of the expanded sidebar */
+    }
+    
+    /* Collapsed state for right sidebars */
+    .right-sidebar.collapsed {
+        transform: translateX(100%);
+    }
+
+    /* Colors specific to different sidebars on the right */
+    #chart .sidebar-content { background-color: rgb(145, 183, 199); }
+    #filter .sidebar-content { background-color: rgba(152, 182, 177); }
+    #details .sidebar-content { background-color: rgb(207, 165, 87); }
+    #about .sidebar-content { background-color: rgba(154, 135, 157); }
+
+
+    .sidebar-toggle.chart {
+    background-color: #91b7c7;
+    width: 80px;
+    height: 100px;
+    line-height: 90px;
+    text-indent: 0pxpx;
+    font-size: 20px;
+    color: white;
+    position: absolute;
+    right: 290px;   /* Push it to the right edge of its parent */
+    top: 195px;  /* Center it vertically */
+    transform: translateY(-50%);  /* Adjust it perfectly to the center */
+    /* z-index: 0;  To make sure it stays on top of other content */
+    border-radius: 20px 0 0 20px;
+    }
+
+    .sidebar-toggle.filter {
+    background-color: rgb(152, 182, 177);
+    width: 80px;
+    height: 90px;
+    line-height: 90px;
+    text-indent: 0px;
+    font-size: 20px;
+    color: white;
+    position: absolute;
+    right: 290px;   /* Push it to the right edge of its parent */
+    top: 300px;  /* Center it vertically */
+    transform: translateY(-50%);  /* Adjust it perfectly to the center */
+    /* z-index: 0;  To make sure it stays on top of other content */
+    border-radius: 20px 0 0 20px;    
+    }
+
+    .sidebar-toggle.details {
+    background-color: rgb(207, 165, 87);
+    width: 80px;
+    height: 90px;
+    /* line-height: 90px; */
+    text-indent: 0px;
+    font-size: 20px;
+    color: white;
+    position: absolute;
+    right: 290px;   /* Push it to the right edge of its parent */
+    top: 400px;  /* Center it vertically */
+    transform: translateY(-50%);  /* Adjust it perfectly to the center */
+    /* z-index: 0;  To make sure it stays on top of other content */
+    border-radius: 20px 0 0 20px;
+    }
+
+    /* Toggle button styles specific to the 'about' sidebar */
+    .sidebar-toggle.about {
+    background-color: rgb(154, 135, 157);
+    width: 80px;
+    height: 90px;
+    line-height: 90px;
+    text-indent: 0px;
+    font-size: 20px;
+    color: white;
+    position: absolute;
+    right: 275px; /* Push it to the right edge of its parent */
+    top: 592px; /* Center it vertically */
+    transform: translateY(-50%); /* Adjust it perfectly to the center */
+    /* z-index: 0; To make sure it stays on top of other content */
+    border-radius: 20px 0 0 20px;
+    }
+
+    
+    /* Styling for 'about' sidebar content */
+    #about .sidebar-content {
+    /* height: auto; */
+    position: relative; /* Ensures proper positioning within the sidebar */
+    max-height: 97vh; /* Limits the height to 95% of the viewport height */
+    overflow-y: auto; /* Enables vertical scrolling */
+    overflow-x: hidden; /* Hides horizontal overflow */
+    box-sizing: border-box; /* Ensures padding and border are included in the element's total width and height */
+    padding: 10px; /* Adds some padding inside the sidebar for better readability */
+    margin-bottom: 15px; /* Adds space between paragraphs */
+    }
+
+    /* Title style for the 'about' sidebar */
+    .about-title,
+    #about.about-title {
+        font-family: "Your Creative Font", sans-serif;
+        color: #ffffff;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        font-size: 30px;
+        margin-bottom: 10px;
+        line-height: 2;
+    }
+
+    #about.about-title {
+        font-size: 20px;
+        margin: 10px 0;
+        text-align: center; /* Centers the title */
+    }
+
+    /* Paragraph styling inside the 'about' sidebar */
+    #about.right-sidebar p {
+        margin: 0 0 50px 0;
+        padding: 0;
+        text-align: justify; /* Justifies the text */
+    }
+
+    /* Centering the content inside the 'about' sidebar, if required */
+    #about.flex-center {
+        display: flex;
+        align-items: flex-start; /* Top-aligns the items */
+        justify-content: flex-start; /* Left-aligns the items when flex-direction is column */
+        flex-direction: column;
+    }
+
+
+
+
+   /* 
+    ===============================
+        scroll for about
+    ===============================
+    */
+
+
+    #about .sidebar-content::-webkit-scrollbar {
+        width: 8px; /* Making the scrollbar thin */
+    }
+    
+    #about .sidebar-content::-webkit-scrollbar-track {
+        background: rgb(154, 135, 157); /* Light grey track */
+    }
+    
+    #about .sidebar-content::-webkit-scrollbar-thumb {
+        background: rgba(236, 232, 232, 0.7); /* Adjust the thumb color to match your design */
+        border-radius: 4px;
+    }
+    
+    #about .sidebar-content::-webkit-scrollbar-thumb:hover {
+        background: #555; /* Darker color on hover */
+    }
+    
+   /* 
+    ===============================
+                scroll for about
+    ===============================
+    */
+
+
+   /* 
+    ===============================
+        Filters
+    ===============================
+    */
+
+    /* Style the container, if you have one. This will center the content and give it a max width. */
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    /* Basic input styling */
+    input[type="text"] {
+        width: 100%; /* Full width */
+        padding: 10px 10px; /* Some padding */
+        margin: 0px 0; /* Margin at the bottom */
+        display: inline-block;
+        border: 0px solid #ccc; /* Light gray border */
+        border-radius: 0px; /* Rounded borders */
+        box-sizing: border-box; /* Adjust box model */
+        transition: 0.3s; /* Smooth transitions */
+    }
+
+    /* Input focus effect */
+    input[type="text"]:focus {
+        border-color: #0099cc; /* Change border to a more noticeable color */
+        box-shadow: 0 0 8px rgba(0, 153, 204, 0.5); /* Slight outer glow */
+    }
+
+    /* Reset button styling - if you have a reset button */
+    button.reset {
+        background-color: #aa8b4e; /* Button color */
+        color: rgb(189, 147, 84); /* Text color */
+        padding: 10px 20px; /* Some padding */
+        border: none; /* Remove border */
+        border-radius: 4px; /* Rounded corners */
+        cursor: pointer; /* Hand cursor on hover */
+        transition: 0.3s; /* Smooth transitions */
+    }
+
+    /* Button hover effect */
+    button.reset:hover {
+        background-color: #cfb06e; /* Darken the button color slightly */
+    }
+
+    /* Optional: Add some spacing at the bottom of the container for better visuals */
+    .container {
+        margin-bottom: 20px;
+    }
+  
+    /* 
+    ===============================
+    GLOBAL & MISCELLANEOUS STYLES
+    ===============================
+    */
+
+    /* Keeps the charts cleanly ordered within the charts sidebar */
+    .chart-container {
+        flex: 1;
+        width: 95%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+
+    /* 
+    ===============================
+        BASEMAP SWITCH
+    ===============================
+    */
+
+    /* #basemapSwitcher {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: #000000;
+        padding: 3px;
+        border-radius: 2px;
+        z-index: 1000;
+        width: 200px; 
+    } 
+  
+    #basemapSwitcher button {
+        margin: 2px;
+        padding: 5px 5px;
+        border: none;
+        border-radius: 0px;
+        cursor: pointer;
+        background-color: rgb(236, 242, 243);
+    }
+    
+    #basemapSwitcher button:hover {
+        background-color: rgba(167, 199, 209, 0.6);
+    }
+    
+ */
+
+ 
+
+   /* 
+    ===============================
+    POPUP STYLES
+    ===============================
+    */
+
+    .popup-content {
+        background: rgba(94, 145, 187, 0.8);
+        padding: 10px;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    }
+
+    .mapboxgl-popup-content {
+        background-color: rgba(19, 82, 61, 0) ;
+        box-shadow: 0 2px 4px rgba(255, 255, 255, 0) ;
+        color: #ffffff;
+    }
+
+    .mapboxgl-popup-tip {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;  /* Adjust size as needed */
+    border-right: 10px solid transparent; /* Adjust size as needed */
+    border-top: 10px solid rgb(6, 32, 23,1); /* Adjust color and size as needed */
+    box-shadow: none; /* Optional: remove if you don't want a shadow */
+}
+
+
+    .mapboxgl-popup-tip::before {
+    border-top-color: rgba(19, 82, 61, 1) !important;
+    }
+
+    .mapboxgl-popup-tip::after {
+    border-top-color: rgba(19, 82, 61, 1) !important;
+    }
+
+    .popup-title {
+        font-size: 15px;
+        margin-bottom: 10px;
+    }
+
+    .popup-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    .popup-item {
+        margin-bottom: 5px;
+    }
+
+    .popup-content a {
+        color: rgba(255, 255, 255, 1);
+        text-decoration: underline;
+    }
+
+    .popup-content a:hover {
+        color: rgb(245, 194, 215);
+    }
+
+    .popup-scrollable {
+        max-height: 500px;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .popup-scrollable::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .popup-scrollable::-webkit-scrollbar-track {
+        background-color: #ffffff00;
+    }
+
+    .popup-scrollable::-webkit-scrollbar-thumb {
+        background-color: rgba(94, 145, 187, 0.5);
+        border-radius: 2px;
+    }
+
+    .popup-scrollable::-webkit-scrollbar-thumb:hover {
+        background-color: rgba(255, 255, 255, 0);
+    }
+
+    .race-nav-links {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 0px;
+    }
+    
+    .race-nav-links a {
+        margin-right: 20px;
+        cursor: pointer;
+        text-decoration: underline;
+        color: #ffffff;
+    }
+    
+    .race-nav-links a:hover {
+        color: #f5c2d7;
+    }
+    

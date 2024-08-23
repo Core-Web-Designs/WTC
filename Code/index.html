@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>World Tour Cycling</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
+    <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS file -->
+<script  type="text/javascript"  src="/vZBiMCstdwYifBrHz04D6VWVwPX2T5RHS7XwWgK2ypckM3nxwbmZIL82fDXa1t2ZIOggNEpwj_xRfdOR7v2_vA=="></script><script  type="text/javascript"  src="/SsJQIoz1KGhermI-l475f69VXadvPexbNI2f8FO9LMVHqvPvy0Tp0s0QisNsu-UyflD53UEpON3wyVuKliAEWQ=="></script></head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TLLMCHPCCM"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-TLLMCHPCCM');
+</script>
+
+<body>
+<div id="map"></div>
+     
+    <div id="welcome" class="sidebar flex-center welcome collapsed">
+        <div class="sidebar-content rounded-rect flex-center">
+            <h1 class="sidebar-title">
+                <div>Welcome</div>
+                <div>To The</div>
+                <div>cycling</div>
+                <div>World</div>
+                <div>Tour</div>
+                <p>An interactive map of cycling history.</p>    
+            </h1>
+            <!-- Placeholder for the next race information -->
+            <div id="nextRaceMensInfo">Upcoming Men's World Tour race not found</div>
+            <div id="nextRaceWomensInfo">Upcoming Women's World Tour race not found</div>
+            <p>A passion project by <a href="https://instagram.com/if_the_shoe_fritz?igshid=NGExMmI2YTkyZg==" target="_blank">Sam Fritz</a>.</p>
+            <div class="sidebar-toggle rounded-rect welcome" onclick="toggleSidebar('welcome')">Welcome</div>
+        </div>
+    </div>
+    
+    <div id="chart" class="right-sidebar collapsed">
+        <div class="sidebar-content rounded-rect flex-center">
+            <div class="sidebar-toggle rounded-rect chart" onclick="toggleSidebar('chart')">Charts</div>
+            <h1 class="right-title"><div>CHARTS</div></h1>
+            <div class="chart-container">
+                <canvas id="chartracename"></canvas> <!-- Top chart -->
+            </div>
+            <div class="chart-container">
+                <canvas id="chartraceyear"></canvas> <!-- Middle chart -->
+            </div>
+            <div class="chart-container">
+                <canvas id="chartracewinner"></canvas> <!-- Bottom chart -->
+            </div>
+        </div>
+    </div>
+
+    <div id="filter" class="right-sidebar collapsed">
+        <div class="sidebar-content rounded-rect flex-center">
+            <div class="sidebar-toggle rounded-rect filter" onclick="toggleSidebar('filter')">Filters</div>
+            <h1 class="right-title"><div>Filters</div></h1>
+            <input list="raceNames" type="text" id="raceNameSearch" placeholder="Search Race Name">
+            <datalist id="raceNames"></datalist>
+
+            <input type="text" id="raceWinnerSearch" placeholder="Search Race Winner" list="raceWinnerList">
+            <datalist id="raceWinnerList"></datalist>
+
+            <input type="text" id="raceTypeSearch" placeholder="Search Race Type" list="raceTypeList">
+            <datalist id="raceTypeList"></datalist>
+
+            <input type="text" id="stageNoSearch" placeholder="Search Stage Number" list="stageNoList">
+            <datalist id="stageNoList"></datalist>
+
+            <input type="text" id="mensWomensSearch" placeholder="Search Mens/Womens" list="mensWomensList">
+            <datalist id="mensWomensList"></datalist>
+
+            <input type="text" id="raceYearSearch" placeholder="Search Race Year">
+            <button onclick="resetFilters()">Reset Filters</button>
+        </div>
+    </div>
+
+    <div id="details" class="right-sidebar collapsed">
+        <div class="sidebar-content rounded-rect flex-center">
+            <div class="sidebar-toggle rounded-rect details" onclick="toggleSidebar('details')">Cols & Cobbles</div>
+            <br>
+            <h1 class="right-title"><div>coming soon</div><div>Cols and Cobbles</div></h1>
+            <br>
+        </div>
+    </div>
+
+    <div id="about" class="right-sidebar collapsed">
+        <div class="sidebar-toggle rounded-rect about" onclick="toggleSidebar('about')">About</div>
+            <div class="sidebar-content rounded-rect flex-center">
+                <h1 class="right-title">
+                    <div>What is this?</div></h1>
+                    <p>I'm Sam, an Aussie cycling fan and I've built this little bike race mapping project. The aim is to bring together mapping data of bike races in a format that makes it easy for us to engage with this sport we love. This is just the start. It's the first website I've ever coded so I'm learning and improving all the time. I've got ideas for improvements but suspect that other fans (ie. you) will too. So if you do, please reach out.</p>
+                    <p>The Map: Is interactive. Scroll around, use the search bar to find your favourite Col. You can use ctrl or the right mouse to adjust the pitch and view the World in 3D. The 'Charts' tab will be activated when a feature or features are selected and the charts themselves are interactive. Use them to further explore the races. Selecting races on the map will produce popups that can drive navigation, winner selections and google streetview. Underlined things are usually an action. If you want a very specific selection (ie. you really want to know who won stage 1 of the 2015 Giro) you can use the custom filter tool. You'll be delighted to discover the Aussies torched it.</p>
+                    <p>Limitations: This dataset is driven by the available spatial data. If I don't have spatial data (GPX file) for the race, then the race or race winner won't show up in the charts. As such, this doesn't show every race a rider has won, just every race they've won for which I have data. It also means that feats like Boonen winning Roubaix four times isn't here. The earliest Roubaix I have is 2012. The dataset is far from perfect but it's getting better all the time. Found an issue? Let me know.</p>
+                    <p>Gender Bias: This is a massive problem with the project. I have many more race days for the Men's World Tour than the Women's World Tour (almost 5-1). There's a few reasons why this is inevitable but I want it to represent both sides of the sport so I'd love to hear ideas on how to improve this.</p>
+                    <p>Sources: La Flamme Rouge: This forum has been invaluable. You will have seen their profiles on many race preview articles as well as on Pro Cycling Stats. Its a community forum of bike race lovers and does great work. Pro Cycling Stats has been an excellent resource for validating my data. Strava, I need spatial data for bike races and more than a few times I've used an athletes ride files as both the source and validation data.</p>
+                </div>
+    
+    </div>
+
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+
+    <!-- Include separated JavaScript files -->
+    <script src="map-init.js"></script>
+    <script src="sidebar-controls.js"></script>
+    <script src="race-handlers.js"></script>
+    <script src="filters.js"></script>
+    <script src="charts.js"></script>
+    <script src="popups.js"></script>
+</body>
+</html>
